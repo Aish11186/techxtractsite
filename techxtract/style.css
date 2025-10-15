@@ -1,0 +1,228 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Inter:wght@300;400;600&display=swap');
+
+/* ===== BASE STYLES ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  color: #fff;
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* Links */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ===== NAVBAR ===== */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 50px;
+  position: relative;
+  z-index: 2; /* above VANTA */
+  backdrop-filter: blur(5px);
+}
+
+.logo img {
+  height: 60px;
+  width: auto;
+  border-radius: 12px;
+  transition: transform 0.3s ease, filter 0.3s ease;
+  filter: drop-shadow(0 0 10px #FFB6C1);
+}
+
+.logo img:hover {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 20px #FFB6C1);
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+}
+
+.nav-links a {
+  font-weight: 600;
+  font-size: 1.1rem;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: linear-gradient(90deg, #B57EDC, #FFB6C1);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  width: 100%;
+}
+
+/* ===== HERO / PAGE HEADER ===== */
+.hero, .page-header {
+  text-align: center;
+  padding: 150px 20px 80px;
+  position: relative;
+  z-index: 2;
+}
+
+.hero h1, .page-header h1 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 4rem;
+  color: #B57EDC;
+  text-shadow: 0 0 20px #B57EDC, 0 0 40px #FFB6C1;
+  animation: floatText 4s ease-in-out infinite;
+}
+
+.hero h2, .page-header h2 {
+  font-size: 1.8rem;
+  color: #fff;
+  opacity: 0.85;
+  margin-top: 15px;
+}
+
+.hero p {
+  margin-top: 20px;
+  font-size: 1.2rem;
+  color: #FFB6C1;
+  opacity: 0.8;
+}
+
+/* ===== FLOATING TEXT ANIMATION ===== */
+@keyframes floatText {
+  0%,100% { transform: translateY(0px);}
+  50% { transform: translateY(-15px);}
+}
+
+/* ===== CONTENT SECTIONS ===== */
+.section, .content {
+  max-width: 1200px;
+  margin: 50px auto 100px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  position: relative;
+  z-index: 2;
+}
+
+/* ===== SLEEK BOX CARDS ===== */
+.card, .dept-card {
+  background: rgba(20, 15, 35, 0.6); /* semi-transparent dark box */
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 25px;
+  padding: 25px;
+  width: 280px;
+  text-align: center;
+  transition: transform 0.4s ease, box-shadow 0.4s ease, backdrop-filter 0.4s ease;
+  animation: fadeUp 1s ease forwards;
+  opacity: 0;
+  backdrop-filter: blur(5px);
+}
+
+.card:nth-child(1), .dept-card:nth-child(1) { animation-delay: 0.1s; }
+.card:nth-child(2), .dept-card:nth-child(2) { animation-delay: 0.3s; }
+.card:nth-child(3), .dept-card:nth-child(3) { animation-delay: 0.5s; }
+.card:nth-child(4), .dept-card:nth-child(4) { animation-delay: 0.7s; }
+
+.card:hover, .dept-card:hover {
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 0 0 30px rgba(181, 126, 220, 0.5);
+}
+
+/* Card headings and text */
+.card h3, .dept-card h4 {
+  color: #FFB6C1;
+  margin-bottom: 10px;
+}
+
+.card p, .dept-card p {
+  color: #fff;
+  font-size: 0.95em;
+  opacity: 0.85;
+  line-height: 1.6;
+}
+
+/* ===== DEPARTMENT GRID ===== */
+.dept-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 30px;
+}
+
+/* ===== VISION / MISSION ===== */
+.vision-mission {
+  max-width: 900px;
+  margin: 40px auto;
+  text-align: center;
+}
+
+.vision-mission h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #B57EDC;
+}
+
+.vision-mission p {
+  font-size: 1rem;
+  color: #fff;
+  opacity: 0.85;
+  margin-bottom: 20px;
+}
+
+/* ===== FOOTER ===== */
+footer {
+  width: 100%;
+  padding: 20px 0;
+  background: rgba(0,0,0,0.7);
+  text-align: center;
+  color: #ccc;
+  position: relative;
+  z-index: 2;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeUp {
+  0% { transform: translateY(20px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .nav-links {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .hero h1, .page-header h1 {
+    font-size: 3rem;
+  }
+  .hero h2, .page-header h2 {
+    font-size: 1.4rem;
+  }
+  .card, .dept-card {
+    width: 90%;
+  }
+}
