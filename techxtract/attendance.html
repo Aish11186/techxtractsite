@@ -1,0 +1,177 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Official TechXtract Society Event & Attendance Management System. High-throughput USB barcode scanning, SHA-256 cryptographic audit logs, and live dashboards.">
+  <title>Attendance Management | TECHXTRACT</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="logo">
+      <a href="index.html"><img src="images/logo.jpg" alt="TECHXTRACT Logo"></a>
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="members.html">Members</a></li>
+      <li><a href="events.html">Events</a></li>
+      <li><a href="attendance.html" class="active">Attendance Management</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main class="attendance-container">
+  <section class="portal-header">
+    <div class="status-chip">
+      <span class="live-dot"></span> CST DEPT &bull; OFFICIAL ATTENDANCE SYSTEM
+    </div>
+    <h1>ATTENDANCE MANAGEMENT</h1>
+    <p class="subtitle">Official TechXtract Society Event &amp; Attendance Management System with Barcode/QR Scanning, DB-level Duplicate Prevention &amp; SHA-256 Audit Chaining.</p>
+    <div class="live-clock-badge" id="liveClockBadge">Loading time...</div>
+  </section>
+
+  <section class="sys-overview-card">
+    <div class="sys-header-row">
+      <div class="sys-title-group">
+        <span class="badge-dept-tech">CORE ENGINE v1.0.0</span>
+        <h2>Integrated Attendance Engine (FastAPI + Next.js)</h2>
+        <p>Connected to 114 verified member barcodes, 38 society events &amp; SQLite database.</p>
+      </div>
+      <div class="sys-badges-group">
+        <div class="service-pill"><span class="live-dot"></span> Next.js UI: <strong id="appPortLabel">:3000</strong></div>
+        <div class="service-pill"><span class="live-dot"></span> FastAPI Core: <strong>:8000</strong></div>
+      </div>
+    </div>
+
+    <div class="quick-nav-grid">
+      <a id="link-dashboard" href="#" target="_blank" class="nav-tile">
+        <span class="nav-tile-icon">&#128202;</span>
+        <div class="nav-tile-info"><strong>Live Dashboard</strong><span>Turnout stats &amp; charts</span></div>
+        <span class="tile-arrow">&#8599;</span>
+      </a>
+      <a id="link-scanner" href="#" target="_blank" class="nav-tile highlight-tile">
+        <span class="nav-tile-icon">&#9889;</span>
+        <div class="nav-tile-info"><strong>Barcode Scanner</strong><span>USB &amp; Camera scanner terminal</span></div>
+        <span class="tile-arrow">&#8599;</span>
+      </a>
+      <a id="link-students" href="#" target="_blank" class="nav-tile">
+        <span class="nav-tile-icon">&#128101;</span>
+        <div class="nav-tile-info"><strong>114 Member Registry</strong><span>Code 128 barcodes visualizer</span></div>
+        <span class="tile-arrow">&#8599;</span>
+      </a>
+      <a id="link-reports" href="#" target="_blank" class="nav-tile">
+        <span class="nav-tile-icon">&#128218;</span>
+        <div class="nav-tile-info"><strong>Reports &amp; CSV</strong><span>RFC-4180 attendance export</span></div>
+        <span class="tile-arrow">&#8599;</span>
+      </a>
+      <a id="link-audit" href="#" target="_blank" class="nav-tile">
+        <span class="nav-tile-icon">&#128737;</span>
+        <div class="nav-tile-info"><strong>Audit Hash Chain</strong><span>Cryptographic tamper verification</span></div>
+        <span class="tile-arrow">&#8599;</span>
+      </a>
+      <a id="link-api" href="#" target="_blank" class="nav-tile">
+        <span class="nav-tile-icon">&#9889;</span>
+        <div class="nav-tile-info"><strong>FastAPI Swagger API</strong><span>Interactive backend endpoints</span></div>
+        <span class="tile-arrow">&#8599;</span>
+      </a>
+    </div>
+
+    <div class="credentials-bar">
+      <div class="cred-label">&#128273; Pre-Configured Test Credentials:</div>
+      <div class="cred-items">
+        <div class="cred-badge" onclick="copyCred('admin@techxtract.edu','Admin@12345')" title="Click to copy Super Admin login">
+          <strong>Super Admin:</strong> <span>admin@techxtract.edu</span> / <span class="cred-pass">Admin@12345</span>
+          <button class="copy-btn">&#128203; Copy</button>
+        </div>
+        <div class="cred-badge" onclick="copyCred('coordinator@techxtract.edu','Coord@12345')" title="Click to copy Coordinator login">
+          <strong>Coordinator:</strong> <span>coordinator@techxtract.edu</span> / <span class="cred-pass">Coord@12345</span>
+          <button class="copy-btn">&#128203; Copy</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="view-panel">
+    <div class="iframe-wrapper">
+      <div class="iframe-toolbar">
+        <div class="iframe-status">
+          <span class="live-dot"></span>
+          <span id="iframeStatusLabel">Connecting to Attendance App...</span>
+        </div>
+        <div class="iframe-actions">
+          <button class="btn btn-sm btn-secondary" onclick="reloadIframe()">&#128260; Refresh</button>
+          <a id="link-fullscreen" href="#" target="_blank" class="btn btn-sm btn-primary">&#8599; Open Fullscreen Tab</a>
+        </div>
+      </div>
+      <iframe id="attendanceIframe" src="about:blank" class="app-iframe" title="TechXtract Attendance Terminal"></iframe>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>&copy; 2025 TECHXTRACT | MAIT | All Rights Reserved</p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+<script>
+  VANTA.NET({
+    el: "body", mouseControls: true, touchControls: true, gyroControls: false,
+    minHeight: 200, minWidth: 200, scale: 1, scaleMobile: 1,
+    color: 0x9A57C0, backgroundColor: 0x0a0a16,
+    points: 10, maxDistance: 25, spacing: 18, showDots: true
+  });
+
+  var HOST = window.location.hostname;
+  var APP_BASE = 'http://' + HOST + ':3000';
+  var API_BASE = 'http://' + HOST + ':8000';
+
+  document.getElementById('appPortLabel').textContent = ':3000 (' + HOST + ')';
+  document.getElementById('link-dashboard').href  = APP_BASE + '/dashboard';
+  document.getElementById('link-scanner').href    = APP_BASE + '/events/1/scanner';
+  document.getElementById('link-students').href   = APP_BASE + '/students';
+  document.getElementById('link-reports').href    = APP_BASE + '/reports';
+  document.getElementById('link-audit').href      = APP_BASE + '/audit';
+  document.getElementById('link-api').href        = API_BASE + '/docs';
+  document.getElementById('link-fullscreen').href = APP_BASE + '/login';
+
+  var iframe = document.getElementById('attendanceIframe');
+  iframe.src = APP_BASE + '/login';
+
+  iframe.addEventListener('load', function() {
+    document.getElementById('iframeStatusLabel').textContent = 'Connected: ' + APP_BASE;
+  });
+
+  function reloadIframe() {
+    var f = document.getElementById('attendanceIframe');
+    if (f) f.src = APP_BASE + '/login';
+  }
+
+  function updateLiveClock() {
+    var now = new Date();
+    var d = now.toLocaleDateString('en-US', {weekday:'short',month:'short',day:'numeric',year:'numeric'});
+    var t = now.toLocaleTimeString('en-US', {hour:'2-digit',minute:'2-digit',second:'2-digit'});
+    var el = document.getElementById('liveClockBadge');
+    if (el) el.innerHTML = '\uD83D\uDD52 ' + d + ' &bull; <span>' + t + '</span>';
+  }
+  setInterval(updateLiveClock, 1000);
+  updateLiveClock();
+
+  function copyCred(email, pass) {
+    var text = 'Email: ' + email + '\nPassword: ' + pass;
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(text).then(function() {
+        alert('Copied!\n' + text);
+      }).catch(function() { prompt('Copy:', text); });
+    } else {
+      prompt('Copy:', text);
+    }
+  }
+</script>
+<script src="script.js"></script>
+</body>
+</html>
